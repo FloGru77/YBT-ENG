@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Y Balance Test Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#f5f0e5">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+</head>
+<body>
+    <div class="header">
+        <div class="patient-info">
+            <div class="form-group">
+                <label for="patient">Patient:</label>
+                <input type="text" id="patient">
+            </div>
+            <div class="form-group">
+                <label for="therapist">Therapist:</label>
+                <select id="therapist" class="therapist-select">
+                    <option value="">Please select...</option>
+                    <option value="Barbara, Hohlfeld">Barbara, Hohlfeld</option>
+                    <option value="Felix, Janicke">Felix, Janicke</option>
+                    <option value="Florian, Gruner">Florian, Gruner</option>
+                    <option value="Frederike, Hohlfeld">Frederike, Hohlfeld</option>
+                    <option value="Gina, Leuschner">Gina, Leuschner</option>
+                    <option value="Marcus, Trocha">Marcus, Trocha</option>
+                    <option value="Michael, Jeschke">Michael, Jeschke</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="date">Date:</label>
+                <input type="date" id="date">
+            </div>
+        </div>
+        
+        <div class="title-container">
+            <h1>Y Balance Test Calculator</h1>
+            <p class="subtitle">Dynamic Balance Assessment Tool</p>
+        </div>
+        
+        <div class="contact-info">
+            <p><strong>Körpercentrum Dresden Mitte</strong><br>
+            Könneritzstraße 31<br>
+            01067 Dresden<br>
+            <a href="https://www.koerpercentrum.de">www.koerpercentrum.de</a></p>
+        </div>
+    </div>
+    
+    <div class="tab-buttons">
+        <button class="tab-button active" id="btn-calculator">Calculator</button>
+        <button class="tab-button" id="btn-info">Test Information</button>
+        <button class="tab-button" id="btn-research">Research & Norms</button>
+    </div>
+    
+    <div id="calculator" class="tab-content active">
+        <div class="container">
+            <div class="form-group">
+                <label for="right-limb-length">Right Limb Length (cm):</label>
+                <input type="number" id="right-limb-length" step="0.1" min="0" placeholder="Enter right limb length in cm">
+            </div>
+            
+            <div class="form-group">
+                <label for="left-limb-length">Left Limb Length (cm):</label>
+                <input type="number" id="left-limb-length" step="0.1" min="0" placeholder="Enter left limb length in cm">
+            </div>
+            
+            <div class="leg-section">
+                <h2>Right Leg (Stance Leg)</h2>
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="right-anterior">Anterior (cm):</label>
+                        <input type="number" id="right-anterior" step="0.1" min="0" placeholder="Anterior">
+                    </div>
+                    <div class="form-group">
+                        <label for="right-posteromedial">Posteromedial (cm):</label>
+                        <input type="number" id="right-posteromedial" step="0.1" min="0" placeholder="Posteromedial">
+                    </div>
+                    <div class="form-group">
+                        <label for="right-posterolateral">Posterolateral (cm):</label>
+                        <input type="number" id="right-posterolateral" step="0.1" min="0" placeholder="Posterolateral">
+                    </div>
+                </div>
+                
+                <div class="results">
+                    <h3>Right Leg Composite Score:</h3>
+                    <div id="right-composite-percent" class="result-value">-</div>
+                </div>
+            </div>
+            
+            <div class="leg-section">
+                <h2>Left Leg (Stance Leg)</h2>
+                <div class="input-grid">
+                    <div class="form-group">
+                        <label for="left-anterior">Anterior (cm):</label>
+                        <input type="number" id="left-anterior" step="0.1" min="0" placeholder="Anterior">
+                    </div>
+                    <div class="form-group">
+                        <label for="left-posteromedial">Posteromedial (cm):</label>
+                        <input type="number" id="left-posteromedial" step="0.1" min="0" placeholder="Posteromedial">
+                    </div>
+                    <div class="form-group">
+                        <label for="left-posterolateral">Posterolateral (cm):</label>
+                        <input type="number" id="left-posterolateral" step="0.1" min="0" placeholder="Posterolateral">
+                    </div>
+                </div>
+                
+                <div class="results">
+                    <h3>Left Leg Composite Score:</h3>
+                    <div id="left-composite-percent" class="result-value">-</div>
+                </div>
+            </div>
+            
+            <button id="calculate-btn" class="btn-primary">Calculate Scores</button>
+            
+            <div class="results" style="margin-top: 30px;">
+                <h3>Asymmetry Assessment:</h3>
+                <div id="asymmetry-container">
+                    <div id="asymmetry-composite" class="result-value">-</div>
+                    <div id="anterior-asymmetry">-</div>
+                    <div id="posteromedial-asymmetry">-</div>
+                    <div id="posterolateral-asymmetry">-</div>
+                </div>
+            </div>
+            
+            <div class="lsi-section">
+                <h3>Limb Symmetry Index (LSI)</h3>
+                <p>The LSI measures the symmetry between limbs as a percentage:</p>
+                <div id="lsi-container">
+                    <div id="lsi-composite" class="lsi-value">-</div>
+                    <div id="lsi-interpretation">-</div>
+                </div>
+                <p><small>LSI = (Lower scoring limb / Higher scoring limb) × 100%</small></p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="info" class="tab-content">
+        <div class="container">
+            <h2>Y Balance Test (YBT) Information</h2>
+            <p>The Y Balance Test is a dynamic functional test that measures postural control while performing a single-leg stance with reach movements. It was developed from the Star Excursion Balance Test (SEBT) to improve reliability and standardization.</p>
+            
+            <h3>Purpose</h3>
+            <p>The YBT assesses dynamic balance, neuromuscular control, and mobility. It is used in:</p>
+            <ul>
+                <li>Injury risk screening</li>
+                <li>Return-to-sport decision making</li>
+                <li>Assessing functional deficits related to lower extremity conditions</li>
+                <li>Monitoring progress during rehabilitation</li>
+            </ul>
+            
+            <h3>Test Directions</h3>
+            <p>The YBT consists of three reaching directions that form a "Y" shape:</p>
+            
+            <svg class="ytest-diagram" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <circle cx="150" cy="150" r="140" fill="#f9f9f9" stroke="#333" stroke-width="2"/>
+                
+                <!-- Y Directions - just simple lines, no arrows -->
+                <line x1="150" y1="150" x2="150" y2="30" stroke="#333" stroke-width="4"/>
+                <line x1="150" y1="150" x2="250" y2="250" stroke="#333" stroke-width="4"/>
+                <line x1="150" y1="150" x2="50" y2="250" stroke="#333" stroke-width="4"/>
+                
+                <!-- Center with Stance Leg R label -->
+                <circle cx="150" cy="150" r="25" fill="#333"/>
+                <text x="150" y="147" text-anchor="middle" font-size="11" fill="white">Stance</text>
+                <text x="150" y="160" text-anchor="middle" font-size="11" fill="white">Leg R</text>
+                
+                <!-- Enhanced Labels with solid background for better visibility -->
+                <rect x="120" y="5" width="60" height="25" fill="white" stroke="#333" stroke-width="1" rx="4"/>
+                <text x="150" y="23" text-anchor="middle" font-weight="bold" font-size="14" fill="#000">Anterior</text>
+                
+                <!-- SWAPPED: Right side now shows Posteromedial -->
+                <rect x="200" y="250" width="90" height="20" fill="white" stroke="#333" stroke-width="1" rx="0"/>
+                <text x="245" y="265" text-anchor="middle" font-weight="bold" font-size="12" fill="#000">Posteromedial</text>
+                
+                <!-- SWAPPED: Left side now shows Posterolateral -->
+                <rect x="10" y="250" width="90" height="20" fill="white" stroke="#333" stroke-width="1" rx="0"/>
+                <text x="55" y="265" text-anchor="middle" font-weight="bold" font-size="12" fill="#000">Posterolateral</text>
+            </svg>
+            
+            <h3>Testing Protocol</h3>
+            <ol>
+                <li><strong>Limb Length Measurement:</strong> Measure from the anterior superior iliac spine (ASIS) to the distal aspect of the medial malleolus while the subject is lying supine (on back). Measure each leg separately and use the specific limb length for normalizing each leg's reach distances.</li>
+                <li><strong>Practice Trials:</strong> Complete 6 practice trials in each direction for each foot prior to formal testing.</li>
+                <li><strong>Testing Order:</strong> Follow a standard order: right anterior, left anterior, right posteromedial, left posteromedial, right posterolateral, left posterolateral.</li>
+                <li><strong>Foot Position:</strong> Place the stance foot with the most distal aspect of the toes at the center of the grid.</li>
+                <li><strong>Performance:</strong> While maintaining balance on the stance limb, reach as far as possible with the non-stance limb in the specified direction.</li>
+                <li><strong>Measurement:</strong> Record the farthest reach distance achieved in each direction.</li>
+                <li><strong>Important:</strong> The test must be performed on both legs to assess asymmetry, which is a key injury risk factor.</li>
+            </ol>
+            
+            <h3>Failed Trials</h3>
+            <p>A trial is considered invalid if the participant:</p>
+            <ul>
+                <li>Fails to maintain unilateral stance</li>
+                <li>Lifts or moves the stance foot</li>
+                <li>Touches down with the reach foot to gain support</li>
+                <li>Fails to return the reach foot to the starting position under control</li>
+            </ul>
+            
+            <h3>Composite Score Calculation</h3>
+            <p>The composite score is calculated for each limb separately:</p>
+            <p><strong>Formula:</strong> Composite Score = (Anterior + Posteromedial + Posterolateral) / (3 × Limb Length) × 100</p>
+            
+            <div class="reference">
+                <p><strong>References:</strong> Plisky et al. (2009), Gribble et al. (2012)</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="research" class="tab-content">
+        <div class="container">
+            <h2>Research Findings & Normative Values</h2>
+            
+            <h3>Injury Risk & Performance</h3>
+            <p>Research has identified several key thresholds associated with increased injury risk:</p>
+            
+            <div class="alert">
+                <p><strong>Key Risk Factors:</strong></p>
+                <ul>
+                    <li>Anterior reach asymmetry ≥4 cm between limbs (2.5× increased risk)</li>
+                    <li>Female athletes with composite score <94% of limb length (6.5× increased risk)</li>
+                    <li>Male collegiate football players with composite score <89.6% (3.5× increased risk)</li>
+                    <li>Limb Symmetry Index (LSI) <94% (significant asymmetry indicating potential risk)</li>
+                </ul>
+            </div>
+            
+            <h3>Limb Symmetry Index (LSI)</h3>
+            <p>The LSI is an important measure in rehabilitation and injury prevention:</p>
+            <ul>
+                <li>LSI = (Lower scoring limb / Higher scoring limb) × 100%</li>
+                <li>Values below 94% indicate clinically relevant asymmetry</li>
+                <li>Often used in return-to-sport decision making after injury</li>
+                <li>Values below 90% generally indicate significant functional deficits</li>
+            </ul>
+            
+            <h3>Population-Specific Composite Score Norms</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Population</th>
+                    <th>Average Composite Score</th>
+                    <th>Risk Threshold</th>
+                </tr>
+                <tr>
+                    <td>High School Basketball Players (Female)</td>
+                    <td>98.4%</td>
+                    <td><94.0%</td>
+                </tr>
+                <tr>
+                    <td>High School Basketball Players (Male)</td>
+                    <td>103.0%</td>
+                    <td>Not established</td>
+                </tr>
+                <tr>
+                    <td>College Football Players</td>
+                    <td>~95-100%</td>
+                    <td><89.6%</td>
+                </tr>
+                <tr>
+                    <td>Older Adults (60+ years)</td>
+                    <td>~85-95%</td>
+                    <td>Not established</td>
+                </tr>
+            </table>
+            
+            <h3>Reliability of the Y Balance Test</h3>
+            <p>The YBT has demonstrated excellent reliability across different populations:</p>
+            <ul>
+                <li><strong>Intrarater reliability:</strong> 0.85-0.91 (ICC)</li>
+                <li><strong>Interrater reliability:</strong> 0.99-1.00 (ICC)</li>
+                <li><strong>Test-retest reliability in older adults:</strong> 0.95 (ICC)</li>
+            </ul>
+            
+            <h3>Relationship to Other Balance Measures</h3>
+            <p>The YBT has been found to correlate significantly with other functional measures in older adults:</p>
+            <ul>
+                <li>Timed Up and Go (r = -0.52)</li>
+                <li>8-foot Up and Go (r = -0.72)</li>
+                <li>30-second Chair Stand Test (r = 0.65)</li>
+                <li>Activities-specific Balance Confidence Scale (r = 0.54)</li>
+                <li>Single Leg Stance (r = 0.50)</li>
+            </ul>
+            
+            <h3>Clinical Applications</h3>
+            <p>The YBT can be effectively used to:</p>
+            <ul>
+                <li>Identify athletes at increased risk for lower extremity injury</li>
+                <li>Detect dynamic balance deficits in patients with various lower extremity conditions</li>
+                <li>Assess the effectiveness of balance and neuromuscular training programs</li>
+                <li>Evaluate balance in older adults with good to excellent validity and reliability</li>
+            </ul>
+            
+            <div class="reference">
+                <p><strong>References:</strong> Plisky et al. (2006), Butler et al. (2013), Sipe et al. (2019), Gribble et al. (2012)</p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="app.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+</html>
